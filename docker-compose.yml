@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  server:
+    image: 'doganulus/carla-server:0.9.13'
+    # build: ./server
+    container_name: carla-server
+    command: '-nullrhi -nosound' # Disable graphics rendering totally
+    ports:
+      - '2000-2002:2000-2002'
+    networks:
+      - carlasim
+
+networks:
+  carlasim:
+    name: carlasim-network
