@@ -42,6 +42,7 @@ def game_loop(args):
         input_control.start(hud, world)
         world.start(input_control)
 
+        # world.generate_traffic(num_vehicles=50, num_walkers=20)
         hero.start(world)
 
         # Game loop
@@ -69,6 +70,7 @@ def game_loop(args):
     finally:
         if hero is not None:
             hero.destroy()
+        # world.cleanup_traffic(vehicles, walkers)
 
 
 def main():

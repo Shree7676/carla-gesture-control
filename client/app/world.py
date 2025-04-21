@@ -780,6 +780,70 @@ class World(object):
 
         self.traffic_manager = self.client.get_trafficmanager(port=self.args.tm_port)
 
+    # def cleanup_traffic(self, vehicles, walkers):
+    #     for vehicle in vehicles:
+    #         vehicle.destroy()
+    #     for walker in walkers:
+    #         walker.destroy()
+            
+    # def generate_traffic(self, num_vehicles=30, num_walkers=10, safe_mode=True):
+    #     """Generate traffic with vehicles and walkers."""
+    #     traffic_manager = self.client.get_trafficmanager(self.args.tm_port)
+    #     traffic_manager.set_global_distance_to_leading_vehicle(2.5)
+
+    #     if safe_mode:
+    #         traffic_manager.set_synchronous_mode(True)
+
+    #     # Get blueprints
+    #     vehicle_blueprints = self.world.get_blueprint_library().filter('vehicle.*')
+    #     walker_blueprints = self.world.get_blueprint_library().filter('walker.pedestrian.*')
+
+    #     # Filter vehicles if safe_mode is enabled
+    #     if safe_mode:
+    #         vehicle_blueprints = [bp for bp in vehicle_blueprints if int(bp.get_attribute('number_of_wheels')) == 4]
+    #         vehicle_blueprints = [bp for bp in vehicle_blueprints if not bp.id.endswith(('microlino', 'carlacola', 'cybertruck', 't2', 'sprinter', 'firetruck', 'ambulance'))]
+
+    #     # Spawn vehicles
+    #     spawn_points = self.world.get_map().get_spawn_points()
+    #     random.shuffle(spawn_points)
+    #     vehicles = []
+    #     for i in range(min(num_vehicles, len(spawn_points))):
+    #         blueprint = random.choice(vehicle_blueprints)
+    #         if blueprint.has_attribute('color'):
+    #             color = random.choice(blueprint.get_attribute('color').recommended_values)
+    #             blueprint.set_attribute('color', color)
+    #         transform = spawn_points[i]
+    #         vehicle = self.world.try_spawn_actor(blueprint, transform)
+    #         if vehicle:
+    #             vehicle.set_autopilot(True, traffic_manager.get_port())
+    #             vehicles.append(vehicle)
+
+    #     # Spawn walkers
+    #     walkers = []
+    #     walker_controllers = []
+    #     for _ in range(num_walkers):
+    #         spawn_point = carla.Transform()
+    #         loc = self.world.get_random_location_from_navigation()
+    #         if loc:
+    #             spawn_point.location = loc
+    #             walker_bp = random.choice(walker_blueprints)
+    #             walker = self.world.try_spawn_actor(walker_bp, spawn_point)
+    #             if walker:
+    #                 walkers.append(walker)
+    #                 walker_controller_bp = self.world.get_blueprint_library().find('controller.ai.walker')
+    #                 walker_controller = self.world.try_spawn_actor(walker_controller_bp, carla.Transform())
+    #                 if walker_controller:
+    #                     walker_controllers.append(walker_controller)
+
+    #     # Start walker controllers
+    #     for walker, walker_controller in zip(walkers, walker_controllers):
+    #         walker_controller.start()
+    #         walker_controller.go_to_location(self.world.get_random_location_from_navigation())
+    #         walker_controller.set_max_speed(1.5)  # Set walking speed
+
+    #     print(f"Spawned {len(vehicles)} vehicles and {len(walkers)} walkers.")
+    #     return vehicles, walkers
+
     def select_hero_actor(self):
         """Selects only one hero actor if there are more than one. If there are not any, it will spawn one."""
         hero_vehicles = [
